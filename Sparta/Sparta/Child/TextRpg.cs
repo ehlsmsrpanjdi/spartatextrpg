@@ -26,6 +26,7 @@ namespace Sparta.Child
 
         public override void Start()
         {
+            Instance = this;
             bool selectedcomplete = false;
             while (!selectedcomplete)
             {
@@ -42,6 +43,8 @@ namespace Sparta.Child
                         CreateField<MainField>(FieldName.MainField);
                         CreateField<BattleField>(FieldName.BattleField);
                         CreateField<EncounterField>(FieldName.EncounterField);
+                        CreateField<ShopField>(FieldName.ShopField);
+                        CreateField<InnField>(FieldName.InnField);
                         Player.GetPlayer();
 
                         FieldChange(FieldName.MainField);

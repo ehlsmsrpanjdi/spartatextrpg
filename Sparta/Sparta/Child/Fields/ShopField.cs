@@ -9,16 +9,19 @@ using System.Threading.Tasks;
 
 namespace Sparta.Child.Fields
 {
-    class MainField : Field
+    class ShopField : Field
     {
         public override void Tick()
         {
             base.Tick();
-            Console.WriteLine("메인 마을입니다");
+            Console.WriteLine("상점입니다.");
+
+            Console.WriteLine("현재 소지금 : {0}\n\n", Player.GetPlayer().gold);
+            
 
             Console.WriteLine("0. 상태를 살핀다.");
-            Console.WriteLine("1. 상점");
-            Console.WriteLine("2. 여관");
+            Console.WriteLine("1. 물건을 구매한다.");
+            Console.WriteLine("2. 물건을 판매한다.");
             Console.WriteLine("3. 밖으로");
 
             selectedIndex = selector.Select();
@@ -28,24 +31,17 @@ namespace Sparta.Child.Fields
                     Player.GetPlayer().Tick();
                     break;
                 case 1:
-                    ChangeField(FieldName.ShopField);
                     break;
                 case 2:
-                    ChangeField(FieldName.InnField);
+                    Player.GetPlayer().Sell();
                     break;
                 case 3:
-                    ChangeField(FieldName.BattleField);
+                    ChangeField(FieldName.MainField);
                     break;
                 default:
                     Key.WrongKey();
                     break;
             }
         }
-
-        public override void BeginPlay()
-        {
-            base.BeginPlay();
-        }
-
     }
 }

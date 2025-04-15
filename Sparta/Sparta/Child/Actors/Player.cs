@@ -13,6 +13,36 @@ namespace Sparta.Child.Actors
     class Player : Actor
     {
         Inventory inventory = new Inventory();
+
+        public void Sell()
+        {
+            while (true)
+            {
+                Console.Clear();
+                inventory.PrintOnly();
+
+                Console.WriteLine("현재 소지금 : {0}\n\n", Player.GetPlayer().gold);
+
+                Console.WriteLine("\n\n0. 판매한다.");
+                Console.WriteLine("1. 나간다.");
+
+
+                selectedIndex = selector.Select();
+                switch (selectedIndex)
+                {
+                    case 0:
+                        Console.WriteLine("판매하고 싶은 아이템 번호를 적으시오");
+                        int Index = selector.Select();
+                        Console.WriteLine("판매하고 싶은 아이템 개수를 적으시오");
+                        int count = selector.Select();
+                        Player.GetPlayer().gold += inventory.SellItem(Index, count);
+                        break;
+                    case 1:
+                        return;
+                }
+            }
+        }
+
         public void GainItem(string _item)
         {
             inventory.GainItem(_item);
@@ -66,7 +96,7 @@ namespace Sparta.Child.Actors
             while (true)
             {
                 base.Tick();
-                Console.WriteLine("메인 마을입니다");
+                Console.WriteLine("플레이어\n");
 
                 Console.WriteLine("0. 가방을 확인한다.");
                 Console.WriteLine("1. 무장을 확인한다.");

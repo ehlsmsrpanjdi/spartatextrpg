@@ -26,8 +26,8 @@ namespace Sparta.NameSpace
     public static class FieldName
     {
         public const string MainField = "main";
-        public const string Shop = "shop";
-        public const string Inn = "inn";
+        public const string ShopField = "shop";
+        public const string InnField = "inn";
         public const string BattleField = "battlefield";
         public const string EncounterField = "encounterField";
     }

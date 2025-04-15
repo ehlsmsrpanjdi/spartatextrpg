@@ -17,7 +17,6 @@ namespace Sparta.Parent
 
         public void CreateField<ChildField>(string name) where ChildField : Field, new()
         {
-            name = name.ToUpper();
             ChildField field = new ChildField();
             field.Name = name;
             fieldDictionary.Add(name, field);
@@ -25,7 +24,6 @@ namespace Sparta.Parent
 
         public Field? FieldChange(string name)
         {
-            name = name.ToUpper();
             if (!fieldDictionary.ContainsKey(name))
             {
                 Console.WriteLine("존재하지 않는 레벨입니다.  아무키나 누르시오");

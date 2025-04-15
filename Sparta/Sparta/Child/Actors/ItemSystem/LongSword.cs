@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,20 +66,28 @@ namespace Sparta.Child.Actors.ItemSystem
             }
         }
 
-        public int SellItem(string _itmeName, int _num)
+        public int SellItem(int _Num , int _Count)
         {
-            if (Inven.ContainsKey(_itmeName) == true)
+            int index = 1;
+            foreach (KeyValuePair<string, int> pair in Inven)
             {
-                if (Inven[_itmeName] >= _num)
+                if (_Num == index)
                 {
-                    Inven[_itmeName] -= _num;
-                    return ItemInfo[_itmeName].price * _num;
+                    string key = pair.Key;
+                    if (Inven[pair.Key] > _Count)
+                    {
+                        Inven[pair.Key] -= _Count;
+                        int Value = ItemInfo[pair.Key].price * _Count;
+                        return Value;
+                    }
+                    else if(Inven[pair.Key] == _Count)
+                    {
+                        int Value = ItemInfo[pair.Key].price * _Count;
+                        Inven.Remove(pair.Key);
+                        return Value;
+                    }
                 }
-                if (Inven[_itmeName] == _num)
-                {
-                    Inven.Remove(_itmeName);
-                    return ItemInfo[_itmeName].price * _num;
-                }
+                ++index;
             }
             Console.WriteLine("개수가 모자랍니다");
             Key.AnyKey();
@@ -123,6 +132,17 @@ namespace Sparta.Child.Actors.ItemSystem
             Key.AnyKey();
             return;
         }
+
+        public void PrintOnly()
+        {
+            int index = 1;
+            foreach (KeyValuePair<string, int> pair in Inven)
+            {
+                Console.Write("{0} : ", index++);
+                Console.WriteLine("{0} X {1}", pair.Key, pair.Value);
+            }
+        }
+
         public void Print()
         {
             while (true)
