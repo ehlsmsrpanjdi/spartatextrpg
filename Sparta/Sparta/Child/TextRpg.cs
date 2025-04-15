@@ -22,14 +22,38 @@ namespace Sparta.Child
         }
 
 
-        public override void Start() 
+        public override void Start()
         {
-            CreateField<MainField>(FieldName.MainField);
+            bool selectedcomplete = false;
+            while (!selectedcomplete)
+            {
+                Console.Clear();
+                Console.WriteLine("0. 게임 시작하기");
+                Console.WriteLine("1. 게임 불러오기");
 
-            FieldChange(FieldName.MainField);
-            base.Start();
+                selectedIndex = selector.Select();
+
+                switch (selectedIndex)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        CreateField<MainField>(FieldName.MainField);
+
+                        FieldChange(FieldName.MainField);
+                        base.Start();
+                        selectedcomplete = true;
+                        break;
+                    default:
+                        Console.WriteLine("잘못된 입력입니다.");
+                        Key.AnyKey();
+                        break;
+                }
+            }
         }
 
-
     }
+
+
 }
+

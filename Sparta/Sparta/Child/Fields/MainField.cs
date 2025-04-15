@@ -15,6 +15,7 @@ namespace Sparta.Child.Fields
             base.Tick();
             Console.WriteLine("메인 마을입니다");
 
+            Console.WriteLine("0. 상태를 살핀다.");
             Console.WriteLine("1. 상점");
             Console.WriteLine("2. 여관");
             Console.WriteLine("3. 밖으로");
@@ -22,6 +23,8 @@ namespace Sparta.Child.Fields
             selectedIndex = selector.Select();
             switch (selectedIndex)
             {
+                case 0:
+                    break;
                 case 1:
                     ChangeField(FieldName.Shop);
                     break;

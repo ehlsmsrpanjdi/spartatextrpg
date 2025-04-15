@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sparta.NameSpace;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,10 @@ namespace Sparta.SelectorSystem
             if(int.TryParse(input, out int value))
             {
                 return value;
+            }
+            {
+                Console.WriteLine("잘못된 입력입니다. 숫자를 입력해주세요.");
+                Key.AnyKey();
             }
             return 0;
         }

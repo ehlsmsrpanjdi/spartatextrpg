@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sparta.SelectorSystem;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,11 @@ namespace Sparta.Parent
         public void FieldChange(string name)
         {
             name = name.ToUpper();
+            if (!fieldDictionary.ContainsKey(name))
+            {
+                Console.WriteLine("존재하지 않는 레벨입니다.  아무키나 누르시오");
+                Console.ReadKey();
+            }
             if (selectedField != null)
             {
                 if (fieldDictionary.TryGetValue(name, out Field field))
@@ -75,5 +81,8 @@ namespace Sparta.Parent
         private bool IsEnd = false;
 
         Dictionary<string, Field> fieldDictionary = new Dictionary<string, Field>();
+
+        protected Selector selector = new Selector();
+        protected int selectedIndex = 0;
     }
 }
