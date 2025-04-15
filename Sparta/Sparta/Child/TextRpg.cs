@@ -13,7 +13,7 @@ namespace Sparta.Child
 {
     class TextRpg : MainGame
     {
-        private static TextRpg Instance = null;
+        private static TextRpg? Instance = null;
         public static TextRpg GetInst()
         {
             if (Instance == null)
@@ -52,7 +52,6 @@ namespace Sparta.Child
                         break;
                     case 99:
                         return;
-                        break;
                     default:
                         Console.WriteLine("잘못된 입력입니다.");
                         Key.AnyKey();

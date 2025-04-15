@@ -23,17 +23,18 @@ namespace Sparta.Parent
             fieldDictionary.Add(name, field);
         }
 
-        public Field FieldChange(string name)
+        public Field? FieldChange(string name)
         {
             name = name.ToUpper();
             if (!fieldDictionary.ContainsKey(name))
             {
                 Console.WriteLine("존재하지 않는 레벨입니다.  아무키나 누르시오");
                 Console.ReadKey();
+                return null;
             }
             if (selectedField != null)
             {
-                if (fieldDictionary.TryGetValue(name, out Field field))
+                if (fieldDictionary.TryGetValue(name, out Field? field))
                 {
                     Field PrevField = selectedField;
                     Field CurrentField = field;
@@ -47,7 +48,7 @@ namespace Sparta.Parent
             }
             else
             {
-                if (fieldDictionary.TryGetValue(name, out Field field))
+                if (fieldDictionary.TryGetValue(name, out Field? field))
                 {
                     selectedField = field;
                     selectedField.BeginPlay();
@@ -78,7 +79,7 @@ namespace Sparta.Parent
             IsEnd = true;
         }
 
-        Field selectedField = null;
+        Field? selectedField = null;
         private bool IsEnd = false;
 
         Dictionary<string, Field> fieldDictionary = new Dictionary<string, Field>();

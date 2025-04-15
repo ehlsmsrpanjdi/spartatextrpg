@@ -9,13 +9,13 @@ using Sparta.NameSpace;
 
 namespace Sparta.Parent
 {
-    enum ActorType
+    public enum ActorType
     {
         None = -1,
         Player = 0,
         Monster,
     }
-    class Actor
+    public class Actor
     {
         public Actor() { }
 
@@ -52,13 +52,17 @@ namespace Sparta.Parent
             Console.WriteLine("현재 공격력: {0} + {1}", attack, ItemAttack);
             Console.WriteLine("현재 방어력: {0} + {1}", shield, ItemShield);
 
-            if (Type == ActorType.Player)
+            if (ActType == ActorType.Player)
             {
                 Console.WriteLine("현재 체력: {0}", hp);
                 Console.WriteLine("소지 금액 : {0}\n\n\n\n", gold);
             }
+            else
+            {
+                Console.WriteLine("\n\n");
+            }
 
-            PrintItem();
+                PrintItem();
 
             Key.AnyKey();
         }
@@ -154,7 +158,6 @@ namespace Sparta.Parent
                 {
                     case 0:
                         return;
-                        break;
                     case 1:
                         if (Weapon != null)
                         {
@@ -187,10 +190,10 @@ namespace Sparta.Parent
             }
         }
 
-        public Item Weapon = null;
-        public Item Armour = null;
-        public Item Ring1 = null;
-        public Item Ring2 = null;
+        public Item? Weapon = null;
+        public Item? Armour = null;
+        public Item? Ring1 = null;
+        public Item? Ring2 = null;
 
 
         public int Level { get; protected set; }
@@ -205,6 +208,6 @@ namespace Sparta.Parent
         protected Selector selector = new Selector();
         protected int selectedIndex = 0;
 
-        ActorType Type = ActorType.None;
+        protected ActorType ActType = ActorType.None;
     }
 }

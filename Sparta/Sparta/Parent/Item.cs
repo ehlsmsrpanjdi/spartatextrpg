@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Sparta.Parent
 {
-    enum ItemType {
+    public enum ItemType {
         Weapon = 0,
         Armour,
         Ring,
     }
-    class Item : Actor
+    public class Item : Actor
     {
         public override void PrintItem()
         {
@@ -49,5 +49,6 @@ namespace Sparta.Parent
 
         public bool equipment = false;
         protected string ItemName = "NoNamed";
+        public int price { get; protected set; } = 100;
     }
 }

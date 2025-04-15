@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sparta.Child.Actors.ItemSystem;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,14 @@ namespace Sparta.NameSpace
         public const string Inn = "inn";
         public const string BattleField = "battlefield";
         public const string EncounterField = "encounterField";
+    }
+
+    public static class ItemName
+    {
+        public const string LongSword = "장검";
+        public const string LeatherArmour = "가죽갑옷";
+        public const string OrcArmour = "오크갑옷";
+        public const string OrcSword = "오크장검";
     }
 
 
