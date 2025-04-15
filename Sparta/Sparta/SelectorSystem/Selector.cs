@@ -23,7 +23,7 @@ namespace Sparta.SelectorSystem
             {
                 Key.WrongKey();
             }
-            return 0;
+            return -1;
         }
     }
 }

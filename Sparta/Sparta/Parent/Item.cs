@@ -48,7 +48,7 @@ namespace Sparta.Parent
 
 
         public bool equipment = false;
-        protected string ItemName = "NoNamed";
+        public string ItemName { get; protected set; } = "NoNamed";
         public int price { get; protected set; } = 100;
     }
 }

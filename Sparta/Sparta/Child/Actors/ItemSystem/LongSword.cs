@@ -1,5 +1,6 @@
 ﻿using Sparta.NameSpace;
 using Sparta.Parent;
+using Sparta.SelectorSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,22 +15,61 @@ namespace Sparta.Child.Actors.ItemSystem
     {
         public Inventory()
         {
+            Inven[ItemName.OrcArmour] = 2;
+
             ItemInfo[ItemName.LongSword] = new LongSword();
             ItemInfo[ItemName.LeatherArmour] = new LeatherArmour();
             ItemInfo[ItemName.OrcArmour] = new OrcArmour();
             ItemInfo[ItemName.OrcSword] = new OrcSword();
         }
 
+        public void Tick()
+        {
+            while (true)
+            {
+                Console.Clear();
+
+                Console.WriteLine("장착한 장비\n");
+                Player.GetPlayer().CheckInven();
+                Console.WriteLine("\n\n현재 가방을 살피는 중입니다.\n\n");
+
+
+                Console.WriteLine("0. 장비를 확인한다.");
+                Console.WriteLine("1. 잡동사니를 확인한다.");
+                Console.WriteLine("2. 나간다.");
+
+                selectedIndex = selector.Select();
+                switch (selectedIndex)
+                {
+                    case 0:
+                        Print();
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        return;
+                    default:
+                        break;
+                }
+            }
+        }
         public void GainItem(string _itmeName)
         {
-            ++Inven[_itmeName];
+            if (Inven.ContainsKey(_itmeName))
+            {
+                ++Inven[_itmeName];
+            }
+            else
+            {
+                Inven[_itmeName] = 1;
+            }
         }
 
-        public int PopItem(string _itmeName, int _num)
+        public int SellItem(string _itmeName, int _num)
         {
-            if(Inven.ContainsKey(_itmeName) == true)
+            if (Inven.ContainsKey(_itmeName) == true)
             {
-                if(Inven[_itmeName] >= _num)
+                if (Inven[_itmeName] >= _num)
                 {
                     Inven[_itmeName] -= _num;
                     return ItemInfo[_itmeName].price * _num;
@@ -50,11 +90,11 @@ namespace Sparta.Child.Actors.ItemSystem
             int index = 1;
             foreach (KeyValuePair<string, int> pair in Inven)
             {
-                if(_index == index)
+                if (_index == index)
                 {
                     string key = pair.Key;
                     --Inven[pair.Key];
-                    if(Inven[pair.Key] == 0)
+                    if (Inven[pair.Key] == 0)
                     {
                         Inven.Remove(pair.Key);
                     }
@@ -65,19 +105,74 @@ namespace Sparta.Child.Actors.ItemSystem
             return null;
         }
 
-        public void Print()
+        public void GetItemInfo(int _index)
         {
             int index = 1;
-            foreach(KeyValuePair<string, int> pair in Inven)
+            foreach (KeyValuePair<string, int> pair in Inven)
             {
-                Console.Write("{0} : ", index++);
-                Console.WriteLine("{0} X {1}", pair.Key, pair.Value);
+                if (_index == index)
+                {
+                    string key = pair.Key;
+                    ItemInfo[key].PrintItem();
+                    Key.AnyKey();
+                    return;
+                }
+                ++index;
+            }
+            Console.WriteLine("잘못된 입력입니다.");
+            Key.AnyKey();
+            return;
+        }
+        public void Print()
+        {
+            while (true)
+            {
+                Console.Clear();
+                int index = 1;
+                foreach (KeyValuePair<string, int> pair in Inven)
+                {
+                    Console.Write("{0} : ", index++);
+                    Console.WriteLine("{0} X {1}", pair.Key, pair.Value);
+                }
+                Console.WriteLine("\n\n\n\n");
+                Console.WriteLine("0. 장비 정보를 확인한다.");
+                Console.WriteLine("1. 장비를 장착한다.");
+                Console.WriteLine("2. 나간다.");
+
+                selectedIndex = selector.Select();
+                int number = 0;
+                switch (selectedIndex)
+                {
+                    case 0:
+                        number = selector.Select();
+                        GetItemInfo(number);
+                        break;
+                    case 1:
+                        Console.WriteLine("\n");
+                        Console.WriteLine("몇 번 장비를 장착할 것인가?");
+                        number = selector.Select();
+                        Item? item = GetItem(number);
+                        if (item != null)
+                        {
+                            Player.GetPlayer().TakeOnItem(item);
+                        }
+                        else
+                        {
+                            Key.WrongKey();
+                        }
+                        break;
+                    case 2:
+                        return;
+                }
             }
         }
 
         Dictionary<string, int> Inven = new Dictionary<string, int>();
 
         Dictionary<string, Item> ItemInfo = new Dictionary<string, Item>();
+
+        protected Selector selector = new Selector();
+        protected int selectedIndex = 0;
     }
 
 

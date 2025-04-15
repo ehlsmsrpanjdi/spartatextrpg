@@ -12,11 +12,10 @@ namespace Sparta.Child.Actors
 {
     class Player : Actor
     {
-        List<Item> items = new List<Item>();
-
-        public void GainItem(Item _item)
+        Inventory inventory = new Inventory();
+        public void GainItem(string _item)
         {
-            items.Add(_item);
+            inventory.GainItem(_item);
         }
 
         private static Player? Instance = null;
@@ -29,6 +28,23 @@ namespace Sparta.Child.Actors
                 Instance.BeginPlay();
             }
             return Instance;
+        }
+
+        public void CheckInven()
+        {
+            if (Weapon != null)
+            {
+                Console.WriteLine("[E] {0}", Weapon.ItemName);
+            }
+            if (Armour != null)
+            {
+                Console.WriteLine("[E] {0}", Armour.ItemName);
+            }
+            if (Ring != null)
+            {
+                Console.WriteLine("[E] {0}", Ring.ItemName);
+            }
+
         }
 
         public override void BeginPlay()
@@ -53,13 +69,14 @@ namespace Sparta.Child.Actors
                 Console.WriteLine("메인 마을입니다");
 
                 Console.WriteLine("0. 가방을 확인한다.");
-                Console.WriteLine("1. 장비를 확인한다.");
+                Console.WriteLine("1. 무장을 확인한다.");
                 Console.WriteLine("2. 나간다.");
 
                 selectedIndex = selector.Select();
                 switch (selectedIndex)
                 {
                     case 0:
+                        inventory.Tick();
                         break;
                     case 1:
                         Console.Clear();
@@ -69,6 +86,73 @@ namespace Sparta.Child.Actors
                         return;
                     default:
                         Key.WrongKey();
+                        break;
+                }
+            }
+        }
+
+        public override void TakeOnItem(Item _item)
+        {
+            if (_item.Type == ItemType.Weapon)
+            {
+                if (Weapon != null)
+                {
+                    inventory.GainItem(Weapon.ItemName);
+                }
+                Weapon = _item;
+            }
+            else if (_item.Type == ItemType.Armour)
+            {
+                if (Armour != null)
+                {
+                    inventory.GainItem(Armour.ItemName);
+                }
+                Armour = _item;
+            }
+            else if (_item.Type == ItemType.Ring)
+            {
+                if (Ring != null)
+                {
+                    inventory.GainItem(Ring.ItemName);
+                }
+                Ring = _item;
+            }
+        }
+
+        protected void TakeOffItem()
+        {
+            while (true)
+            {
+                Console.WriteLine("0. 나가기");
+                Console.WriteLine("1. 무기 해제");
+                Console.WriteLine("2. 방어구 해제");
+                Console.WriteLine("3. 반지1 해제");
+                Console.WriteLine("4. 반지2 해제");
+                selectedIndex = selector.Select();
+                switch (selectedIndex)
+                {
+                    case 0:
+                        return;
+                    case 1:
+                        if (Weapon != null)
+                        {
+                            Weapon.TakeOff();
+                            Weapon = null;
+                        }
+                        break;
+                    case 2:
+                        if (Armour != null)
+                        {
+                            Armour.TakeOff();
+                            Armour = null;
+                        }
+                        break;
+                    case 3:
+                        if (Ring != null)
+                        {
+                            Ring.TakeOff();
+                            Ring = null;
+                        }
                         break;
                 }
             }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Sparta.SelectorSystem;
 using Sparta.NameSpace;
+using Sparta.Child.Actors.ItemSystem;
 
 namespace Sparta.Parent
 {
@@ -85,24 +86,36 @@ namespace Sparta.Parent
             {
                 Console.WriteLine("방어구 없음\n");
             }
-            if (Ring1 != null)
+            if (Ring != null)
             {
-                Ring1.PrintItem();
+                Ring.PrintItem();
             }
             else
             {
-                Console.WriteLine("장신구1 없음\n");
+                Console.WriteLine("장신구 없음\n");
             }
-            if (Ring2 != null)
-            {
-                Ring2.PrintItem();
-            }
-            else
-            {
-                Console.WriteLine("장신구2 없음\n");
-            }
+
         }
 
+        public virtual void TakeOnItem(Item _item)
+        {
+            if (_item.Type == ItemType.Weapon)
+            {
+                Weapon = _item;
+                _item.TakeOn();
+            }
+            else if (_item.Type == ItemType.Armour)
+            {
+                Armour = _item;
+                _item.TakeOn();
+            }
+            else if (_item.Type == ItemType.Ring)
+            {
+                Ring = _item;
+                _item.TakeOn();
+            }
+
+        }
 
         public void LevelUp()
         {
@@ -116,84 +129,11 @@ namespace Sparta.Parent
             hp = (int)hpValue;
         }
 
-        protected void TakeOnItem(Item _item)
-        {
-            if (_item.equipment == true)
-            {
-                return;
-            }
-            if (_item.Type == ItemType.Weapon && Weapon == null)
-            {
-                Weapon = _item;
-                _item.TakeOn();
-            }
-            else if (_item.Type == ItemType.Armour && Armour == null)
-            {
-                Armour = _item;
-                _item.TakeOn();
-            }
-            else if (_item.Type == ItemType.Ring && Ring1 == null)
-            {
-                Ring1 = _item;
-                _item.TakeOn();
-            }
-            else if (_item.Type == ItemType.Ring && Ring2 == null)
-            {
-                Ring2 = _item;
-                _item.TakeOn();
-            }
-        }
 
-        protected void TakeOffItem()
-        {
-            while (true)
-            {
-                Console.WriteLine("0. 나가기");
-                Console.WriteLine("1. 무기 해제");
-                Console.WriteLine("2. 방어구 해제");
-                Console.WriteLine("3. 반지1 해제");
-                Console.WriteLine("4. 반지2 해제");
-                selectedIndex = selector.Select();
-                switch (selectedIndex)
-                {
-                    case 0:
-                        return;
-                    case 1:
-                        if (Weapon != null)
-                        {
-                            Weapon.TakeOff();
-                            Weapon = null;
-                        }
-                        break;
-                    case 2:
-                        if (Armour != null)
-                        {
-                            Armour.TakeOff();
-                            Armour = null;
-                        }
-                        break;
-                    case 3:
-                        if (Ring1 != null)
-                        {
-                            Ring1.TakeOff();
-                            Ring1 = null;
-                        }
-                        break;
-                    case 4:
-                        if (Ring2 != null)
-                        {
-                            Ring2.TakeOff();
-                            Ring2 = null;
-                        }
-                        break;
-                }
-            }
-        }
 
         public Item? Weapon = null;
         public Item? Armour = null;
-        public Item? Ring1 = null;
-        public Item? Ring2 = null;
+        public Item? Ring = null;
 
 
         public int Level { get; protected set; }
