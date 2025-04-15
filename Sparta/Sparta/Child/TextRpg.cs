@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sparta.Child;
+using Sparta.Child.Actors;
 
 namespace Sparta.Child
 {
@@ -30,19 +32,24 @@ namespace Sparta.Child
                 Console.Clear();
                 Console.WriteLine("0. 게임 시작하기");
                 Console.WriteLine("1. 게임 불러오기");
+                Console.WriteLine("99. 게임 종료");
 
                 selectedIndex = selector.Select();
 
                 switch (selectedIndex)
                 {
                     case 0:
-                        break;
-                    case 1:
                         CreateField<MainField>(FieldName.MainField);
+                        Player.GetPlayer();
 
                         FieldChange(FieldName.MainField);
                         base.Start();
                         selectedcomplete = true;
+                        break;
+                    case 1:
+                        break;
+                    case 99:
+                        return;
                         break;
                     default:
                         Console.WriteLine("잘못된 입력입니다.");

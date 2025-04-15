@@ -1,4 +1,5 @@
-﻿using Sparta.NameSpace;
+﻿using Sparta.Child.Actors;
+using Sparta.NameSpace;
 using Sparta.Parent;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace Sparta.Child.Fields
             switch (selectedIndex)
             {
                 case 0:
+                    Player.GetPlayer().PrintStatus();
                     break;
                 case 1:
                     ChangeField(FieldName.Shop);
