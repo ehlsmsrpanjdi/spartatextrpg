@@ -40,6 +40,8 @@ namespace Sparta.Child
                 {
                     case 0:
                         CreateField<MainField>(FieldName.MainField);
+                        CreateField<BattleField>(FieldName.BattleField);
+                        CreateField<EncounterField>(FieldName.EncounterField);
                         Player.GetPlayer();
 
                         FieldChange(FieldName.MainField);

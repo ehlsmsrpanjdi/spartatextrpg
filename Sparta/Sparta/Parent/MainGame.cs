@@ -23,7 +23,7 @@ namespace Sparta.Parent
             fieldDictionary.Add(name, field);
         }
 
-        public void FieldChange(string name)
+        public Field FieldChange(string name)
         {
             name = name.ToUpper();
             if (!fieldDictionary.ContainsKey(name))
@@ -42,7 +42,7 @@ namespace Sparta.Parent
 
                     CurrentField.BeginPlay();
                     selectedField = CurrentField;
-                    return;
+                    return selectedField;
                 }
             }
             else
@@ -51,7 +51,7 @@ namespace Sparta.Parent
                 {
                     selectedField = field;
                     selectedField.BeginPlay();
-                    return;
+                    return selectedField;
                 }
             }
         }

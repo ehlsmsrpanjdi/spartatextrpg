@@ -24,4 +24,22 @@ namespace Sparta.Child.Actors.ItemSystem
             shield = 3;
         }
     }
+
+    class OrcArmour : Item
+    {
+        public OrcArmour()
+        {
+            Type = ItemType.Armour;
+            shield = 2;
+        }
+    }
+
+    class OrcSword : Item
+    {
+        public OrcSword()
+        {
+            Type = ItemType.Armour;
+            shield = 5;
+        }
+    }
 }

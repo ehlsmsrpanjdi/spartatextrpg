@@ -43,12 +43,12 @@ namespace Sparta.Parent
             Actors.Clear();
         }
 
-        public void ChangeField(string _fieldName)
+        public Field ChangeField(string _fieldName)
         {
-            TextRpg.GetInst().FieldChange(_fieldName);
+            return TextRpg.GetInst().FieldChange(_fieldName);
         }
 
-        List<Actor> Actors = new List<Actor>();
+        protected List<Actor> Actors = new List<Actor>();
         protected Selector selector = new Selector();
         protected int selectedIndex = 0;
     }

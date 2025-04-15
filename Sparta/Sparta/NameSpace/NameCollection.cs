@@ -22,5 +22,12 @@ namespace Sparta.NameSpace
         public const string Shop = "shop";
         public const string Inn = "inn";
         public const string BattleField = "battlefield";
+        public const string EncounterField = "encounterField";
+    }
+
+
+    public static class Global
+    {
+        public static Random rand = new Random();
     }
 }
