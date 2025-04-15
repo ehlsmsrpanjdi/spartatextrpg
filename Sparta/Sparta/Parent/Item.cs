@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,6 +29,7 @@ namespace Sparta.Parent
                     Console.WriteLine("장신구");
                     break;
             }
+            Console.WriteLine("아이템 이름: {0}", ItemName);
             Console.WriteLine("아이템 공격력: {0}", attack);
             Console.WriteLine("아이템 방어력: {0}\n", shield);
 
@@ -46,5 +48,6 @@ namespace Sparta.Parent
 
 
         public bool equipment = false;
+        protected string ItemName = "NoNamed";
     }
 }

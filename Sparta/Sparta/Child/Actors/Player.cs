@@ -1,4 +1,5 @@
 ﻿using Sparta.Child.Actors.ItemSystem;
+using Sparta.NameSpace;
 using Sparta.Parent;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,26 @@ namespace Sparta.Child.Actors
 
         public override void Tick()
         {
+            base.Tick();
+            PrintStatus();
 
+            Console.WriteLine("메인 마을입니다");
+
+            Console.WriteLine("0. 장비를 확인한다.");
+            Console.WriteLine("1. 나간다.");
+
+            selectedIndex = selector.Select();
+            switch (selectedIndex)
+            {
+                case 0:
+                    break;
+                case 1:
+                    return;
+                    break;
+                default:
+                    Key.WrongKey();
+                    break;
+            }
         }
     }
 

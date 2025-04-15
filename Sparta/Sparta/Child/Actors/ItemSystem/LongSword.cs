@@ -13,33 +13,41 @@ namespace Sparta.Child.Actors.ItemSystem
         {
             Type = ItemType.Weapon;
             attack = 10;
+            ItemName = "장검";
         }
-    }
-
-    class LeatherArmour : Item
-    {
-        public LeatherArmour()
+        public override void Tick()
         {
-            Type = ItemType.Armour;
-            shield = 3;
         }
     }
+}
 
-    class OrcArmour : Item
+class LeatherArmour : Item
+{
+    public LeatherArmour()
     {
-        public OrcArmour()
-        {
-            Type = ItemType.Armour;
-            shield = 2;
-        }
+        Type = ItemType.Armour;
+        shield = 3;
+        ItemName = "가죽갑옷";
     }
+}
 
-    class OrcSword : Item
+class OrcArmour : Item
+{
+    public OrcArmour()
     {
-        public OrcSword()
-        {
-            Type = ItemType.Armour;
-            shield = 5;
-        }
+        Type = ItemType.Armour;
+        shield = 2;
+        ItemName = "오크갑옷";
     }
+}
+
+class OrcSword : Item
+{
+    public OrcSword()
+    {
+        Type = ItemType.Armour;
+        shield = 5;
+        ItemName = "오크장검";
+    }
+}
 }

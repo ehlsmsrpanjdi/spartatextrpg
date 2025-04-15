@@ -54,6 +54,7 @@ namespace Sparta.Parent
                     return selectedField;
                 }
             }
+            return null;
         }
 
         virtual public void Start()

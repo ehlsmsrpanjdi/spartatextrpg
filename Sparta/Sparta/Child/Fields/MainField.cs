@@ -25,7 +25,7 @@ namespace Sparta.Child.Fields
             switch (selectedIndex)
             {
                 case 0:
-                    Player.GetPlayer().PrintStatus();
+                    Player.GetPlayer().Tick();
                     break;
                 case 1:
                     ChangeField(FieldName.Shop);
@@ -37,8 +37,7 @@ namespace Sparta.Child.Fields
                     ChangeField(FieldName.BattleField);
                     break;
                 default:
-                    Console.WriteLine("잘못된 입력입니다.  아무키나 누르시오");
-                    Console.ReadKey();
+                    Key.WrongKey();
                     break;
             }
         }

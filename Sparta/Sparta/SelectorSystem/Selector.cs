@@ -20,8 +20,7 @@ namespace Sparta.SelectorSystem
                 return value;
             }
             {
-                Console.WriteLine("잘못된 입력입니다. 숫자를 입력해주세요.");
-                Key.AnyKey();
+                Key.WrongKey();
             }
             return 0;
         }
