@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sparta.SelectorSystem;
 
 namespace Sparta.Parent
 {
@@ -22,6 +23,7 @@ namespace Sparta.Parent
 
         public virtual void Tick()
         {
+            Console.Clear();
         }
 
         public void SpawnActor<ChildActor>() where ChildActor : Actor , new()

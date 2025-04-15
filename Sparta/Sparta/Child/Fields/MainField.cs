@@ -1,4 +1,5 @@
-﻿using Sparta.Parent;
+﻿using Sparta.NameSpace;
+using Sparta.Parent;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,22 @@ namespace Sparta.Child.Fields
             Console.WriteLine("3. 밖으로");
 
             selectedIndex = selector.Select();
+            switch (selectedIndex)
+            {
+                case 1:
+                    ChangeField(FieldName.Shop);
+                    break;
+                case 2:
+                    ChangeField(FieldName.Inn);
+                    break;
+                case 3:
+                    ChangeField(FieldName.BattleField);
+                    break;
+                default:
+                    Console.WriteLine("잘못된 입력입니다.  아무키나 누르시오");
+                    Console.ReadKey();
+                    break;
+            }
         }
 
         public override void BeginPlay()
