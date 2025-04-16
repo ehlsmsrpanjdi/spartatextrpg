@@ -140,7 +140,8 @@ namespace Sparta.Parent
         public int attack { get; protected set; }
         public int shield { get; protected set; }
         public int hp { get; protected set; }
-        public int gold { get; protected set; }
+        public int currenthp { get; protected set; }
+        public int gold { get;  set; }
         public float exp { get; protected set; }
 
         public float LevelUpValue = 1.1f;

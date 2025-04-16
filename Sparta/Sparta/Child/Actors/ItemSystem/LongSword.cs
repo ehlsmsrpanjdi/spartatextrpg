@@ -16,12 +16,12 @@ namespace Sparta.Child.Actors.ItemSystem
     {
         public Inventory()
         {
-            Inven[ItemName.OrcArmour] = 2;
-
             ItemInfo[ItemName.LongSword] = new LongSword();
             ItemInfo[ItemName.LeatherArmour] = new LeatherArmour();
             ItemInfo[ItemName.OrcArmour] = new OrcArmour();
             ItemInfo[ItemName.OrcSword] = new OrcSword();
+            ItemInfo[ItemName.FullPlateArmour] = new FullPlateArmour();
+            ItemInfo[ItemName.GreatSword] = new GreatSword();
         }
 
         public void Tick()
@@ -66,7 +66,7 @@ namespace Sparta.Child.Actors.ItemSystem
             }
         }
 
-        public int SellItem(int _Num , int _Count)
+        public int SellItem(int _Num, int _Count)
         {
             int index = 1;
             foreach (KeyValuePair<string, int> pair in Inven)
@@ -80,7 +80,7 @@ namespace Sparta.Child.Actors.ItemSystem
                         int Value = ItemInfo[pair.Key].price * _Count;
                         return Value;
                     }
-                    else if(Inven[pair.Key] == _Count)
+                    else if (Inven[pair.Key] == _Count)
                     {
                         int Value = ItemInfo[pair.Key].price * _Count;
                         Inven.Remove(pair.Key);
@@ -114,7 +114,42 @@ namespace Sparta.Child.Actors.ItemSystem
             return null;
         }
 
-        public void GetItemInfo(int _index)
+        public int Buy(string _itemName, int _count)
+        {
+            if (ItemInfo.ContainsKey(_itemName))
+            {
+                Item item = ItemInfo[_itemName];
+                if (Inven.ContainsKey(_itemName))
+                {
+                    Inven[_itemName] += _count;
+                    return _count * item.price;
+                }
+                else
+                {
+                    Inven[_itemName] = _count;
+                    return _count * item.price;
+                }
+            }
+            return 0;
+        }
+
+
+        public Item? GetItemInfo(int _index)
+        {
+            int index = 1;
+            foreach (KeyValuePair<string, int> pair in Inven)
+            {
+                if (_index == index)
+                {
+                    string key = pair.Key;
+                    return ItemInfo[key];
+                }
+                ++index;
+            }
+            return null;
+        }
+
+        public void PrintItemInfo(int _index)
         {
             int index = 1;
             foreach (KeyValuePair<string, int> pair in Inven)
@@ -136,6 +171,12 @@ namespace Sparta.Child.Actors.ItemSystem
         public void PrintOnly()
         {
             int index = 1;
+            if(Inven.Count() == 0)
+            {
+                Console.WriteLine("아무것도 소유하고 있지 않습니다.");
+                return;
+            }
+
             foreach (KeyValuePair<string, int> pair in Inven)
             {
                 Console.Write("{0} : ", index++);
@@ -148,12 +189,7 @@ namespace Sparta.Child.Actors.ItemSystem
             while (true)
             {
                 Console.Clear();
-                int index = 1;
-                foreach (KeyValuePair<string, int> pair in Inven)
-                {
-                    Console.Write("{0} : ", index++);
-                    Console.WriteLine("{0} X {1}", pair.Key, pair.Value);
-                }
+                PrintOnly();
                 Console.WriteLine("\n\n\n\n");
                 Console.WriteLine("0. 장비 정보를 확인한다.");
                 Console.WriteLine("1. 장비를 장착한다.");
@@ -165,7 +201,7 @@ namespace Sparta.Child.Actors.ItemSystem
                 {
                     case 0:
                         number = selector.Select();
-                        GetItemInfo(number);
+                        PrintItemInfo(number);
                         break;
                     case 1:
                         Console.WriteLine("\n");
@@ -189,7 +225,7 @@ namespace Sparta.Child.Actors.ItemSystem
 
         Dictionary<string, int> Inven = new Dictionary<string, int>();
 
-        Dictionary<string, Item> ItemInfo = new Dictionary<string, Item>();
+        static Dictionary<string, Item> ItemInfo = new Dictionary<string, Item>();
 
         protected Selector selector = new Selector();
         protected int selectedIndex = 0;
@@ -238,6 +274,29 @@ namespace Sparta.Child.Actors.ItemSystem
             shield = 5;
             ItemName = "오크장검";
             price = 50;
+        }
+    }
+
+    class FullPlateArmour : Item
+    {
+        public FullPlateArmour()
+        {
+            Type = ItemType.Armour;
+            shield = 12;
+            ItemName = "판금갑옷";
+            price = 500;
+        }
+    }
+
+    class GreatSword : Item
+    {
+        public GreatSword()
+        {
+            Type = ItemType.Weapon;
+            shield = 2;
+            attack = 20;
+            ItemName = "대검";
+            price = 400;
         }
     }
 }
