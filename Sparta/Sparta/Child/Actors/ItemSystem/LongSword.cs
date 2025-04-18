@@ -16,12 +16,16 @@ namespace Sparta.Child.Actors.ItemSystem
     {
         public Inventory()
         {
-            ItemInfo[ItemName.LongSword] = new LongSword();
-            ItemInfo[ItemName.LeatherArmour] = new LeatherArmour();
-            ItemInfo[ItemName.OrcArmour] = new OrcArmour();
-            ItemInfo[ItemName.OrcSword] = new OrcSword();
-            ItemInfo[ItemName.FullPlateArmour] = new FullPlateArmour();
-            ItemInfo[ItemName.GreatSword] = new GreatSword();
+            if (DictionaryInit != true)
+            {
+                ItemInfo[ItemName.LongSword] = new LongSword();
+                ItemInfo[ItemName.LeatherArmour] = new LeatherArmour();
+                ItemInfo[ItemName.OrcArmour] = new OrcArmour();
+                ItemInfo[ItemName.OrcSword] = new OrcSword();
+                ItemInfo[ItemName.FullPlateArmour] = new FullPlateArmour();
+                ItemInfo[ItemName.GreatSword] = new GreatSword();
+                DictionaryInit = true;
+            }
         }
 
         public void Tick()
@@ -171,7 +175,7 @@ namespace Sparta.Child.Actors.ItemSystem
         public void PrintOnly()
         {
             int index = 1;
-            if(Inven.Count() == 0)
+            if (Inven.Count() == 0)
             {
                 Console.WriteLine("아무것도 소유하고 있지 않습니다.");
                 return;
@@ -226,6 +230,7 @@ namespace Sparta.Child.Actors.ItemSystem
         Dictionary<string, int> Inven = new Dictionary<string, int>();
 
         static Dictionary<string, Item> ItemInfo = new Dictionary<string, Item>();
+        static bool DictionaryInit = false;
 
         protected Selector selector = new Selector();
         protected int selectedIndex = 0;
