@@ -14,7 +14,7 @@ namespace Sparta.Child.Actors
     {
         Inventory inventory = new Inventory();
 
-        //
+        
 
         public void Sell()
         {
